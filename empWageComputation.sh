@@ -11,7 +11,7 @@ present=1;
 partTimePresent=2;
 empMonthWage=0;
 empHour=0;
-days=0;
+days=1;
 hours=0;
 
 function getWorkHr(){
@@ -31,15 +31,17 @@ function getWorkHr(){
 	esac
 }
 
-while [[ $days -ne 20 && $hours -le 100 ]]
+while [[ $days -le 20 && $hours -le 100 ]]
 do
 	attendanceCheck=$((RANDOM%3));
 	empHour=$( getWorkHr $attendanceCheck )
 	hours=$((hours+$empHour))
-	((days++))
+
 	dailyWage=$((empHour*WAGE_PER_HOUR))
 	dailyWage[$days]=$dailyWage;
+	((days++))
 
 	empMonthWage=$((dailyWage+empMonthWage))
 done
-echo "${dailyWage[@]}"
+
+echo -e "${!dailyWage[@]} :\n  ${dailyWage[@]}"
