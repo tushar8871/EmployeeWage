@@ -38,5 +38,8 @@ do
 	hours=$((hours+$empHour))
 	((days++))
 	dailyWage=$((empHour*WAGE_PER_HOUR))
+	dailyWage[$days]=$dailyWage;
+
 	empMonthWage=$((dailyWage+empMonthWage))
 done
+echo "${dailyWage[@]}"
