@@ -20,5 +20,3 @@ else
 	echo "Employee is absent"
 	empDailyWage=0;
 fi
-
-
