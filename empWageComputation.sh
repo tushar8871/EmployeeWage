@@ -11,22 +11,28 @@ present=1;
 partTimePresent=2;
 empMonthWage=0;
 days=0;
+hours=0;
 
-while [[ $days -ne 20 ]]
+while [[ $days -ne 20 && $hours -le 100 ]]
 do
-	attendanceCheck=$((RANDOM%3));
-	case $attendanceCheck in
-		$present)
-			empHour=8;
-			;;
-		$partTimePresent)
-			empHour=4;
-			;;
-		*)
-			empHour=0;
-			;;
-	esac
-	
+	#if [ $days -le 20 -a $hours -le 100 ]
+	#then
+		attendanceCheck=$((RANDOM%3));
+		case $attendanceCheck in
+			$present)
+				empHour=8;
+				hours=$((hours+$empHour))
+				;;
+			$partTimePresent)
+				empHour=4;
+				hours=$((hours+$empHour))
+				;;
+			*)
+				empHour=0;
+				;;
+		esac
+	#fi	
 	((days++))
-	empMonthWage=$((empHour*WAGE_PER_HOUR+empMonthWage))
+	dailyWage=$((empHour*WAGE_PER_HOUR))
+	empMonthWage=$((dailyWage+empMonthWage))
 done
